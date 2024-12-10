@@ -1,0 +1,51 @@
+{
+  "name": "ada-accessibility",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/cache": "^11.11.0",
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.9",
+    "@mui/material": "^5.15.9",
+    "@mui/material-nextjs": "^5.15.9",
+    "@supabase/auth-helpers-nextjs": "^0.9.0",
+    "@supabase/auth-ui-react": "^0.4.7",
+    "@supabase/auth-ui-shared": "^0.1.8",
+    "@supabase/supabase-js": "^2.39.3",
+    "@tanstack/react-query": "^5.20.5",
+    "@types/d3-ease": "^3.0.2",
+    "@types/mapbox-gl": "^3.4.1",
+    "@types/uuid": "^9.0.8",
+    "autoprefixer": "^10.4.17",
+    "d3-ease": "^3.0.1",
+    "dotenv": "^16.4.5",
+    "framer-motion": "^11.0.3",
+    "mapbox-gl": "^3.1.2",
+    "next": "14.1.0",
+    "postcss": "^8.4.35",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-dropzone": "^14.2.3",
+    "react-map-gl": "^7.1.7",
+    "tailwindcss": "^3.4.1",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "@types/react": "^18.2.55",
+    "@types/react-dom": "^18.2.19",
+    "@typescript-eslint/eslint-plugin": "^8.17.0",
+    "@typescript-eslint/parser": "^8.17.0",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "14.1.0",
+    "eslint-config-prettier": "^9.1.0",
+    "typescript": "^5.3.3"
+  }
+}
