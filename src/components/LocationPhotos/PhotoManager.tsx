@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Box, Typography, Alert, CircularProgress, Paper, Button } from '@mui/material';
 import { useLocationPhotos } from '@/hooks/useLocationPhotos';
+import { useAuth } from '@/contexts/AuthContext';
 import PhotoUpload from './PhotoUpload';
 import PhotoGallery from './PhotoGallery';
 
@@ -19,6 +20,12 @@ export default function PhotoManager({
   onClose,
   onPhotoChange
 }: PhotoManagerProps) {
+  const { user } = useAuth();
+  const isAdmin = user?.app_metadata?.role === 'admin';
+  
+  // Override editable prop based on admin status
+  editable = editable && isAdmin;
+
   const {
     photos,
     loading,

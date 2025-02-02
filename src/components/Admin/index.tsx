@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import { LocationData, PendingLocation, ApprovedLocation } from '@/types';
 import { supabase } from '@/lib/supabase-client';
+import { useAuth } from '@/contexts/AuthContext';
 import { approveLocation, rejectLocation } from '@/lib/location-approval-service';
 import LocationTable from './LocationTable';
 import LocationSearch from './LocationSearch';
@@ -18,6 +19,19 @@ import LocationTabs from './LocationTabs';
 import DeleteConfirmDialog from './DeleteConfirmDialog';
 
 export default function AdminPanel() {
+  const { user } = useAuth();
+  const isAdmin = user?.app_metadata?.role === 'admin';
+  
+  if (!isAdmin) {
+    return (
+      <Box sx={{ p: 3 }}>
+        <Alert severity="error">
+          You do not have permission to access this page. Please contact an administrator.
+        </Alert>
+      </Box>
+    );
+  }
+
   const [pendingLocations, setPendingLocations] = useState<PendingLocation[]>([]);
   const [approvedLocations, setApprovedLocations] = useState<ApprovedLocation[]>([]);
   const [filteredLocations, setFilteredLocations] = useState<LocationData[]>([]);

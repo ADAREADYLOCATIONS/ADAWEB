@@ -19,7 +19,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { LocationData, PendingLocation } from '@/types';
+import { LocationData, PendingLocation, isApprovedLocation } from '@/types';
+import { useAuth } from '@/contexts/AuthContext';
 import { useState } from 'react';
 import PhotoManager from '../LocationPhotos/PhotoManager';
 import LocationPhotoCount from './LocationPhotoCount';
@@ -43,6 +44,10 @@ export default function LocationTable({
 }: LocationTableProps) {
   const [selectedLocation, setSelectedLocation] = useState<LocationData | null>(null);
   const [photoCountKey, setPhotoCountKey] = useState(0);
+  const { user } = useAuth();
+  
+  // Check if user has admin role
+  const isAdmin = user?.app_metadata?.role === 'admin';
 
   const handlePhotoChange = () => {
     setPhotoCountKey(prev => prev + 1);
@@ -108,6 +113,7 @@ export default function LocationTable({
                 <TableCell align="right">
                   <IconButton 
                     onClick={() => location.id && onEdit(location.id)}
+                    disabled={!isAdmin}
                     color="primary"
                     size="small"
                     sx={{ mr: 1 }}
@@ -120,6 +126,7 @@ export default function LocationTable({
                     <>
                       <IconButton 
                         onClick={() => handleApprove(location)}
+                        disabled={!isAdmin}
                         color="success"
                         size="small"
                         sx={{ mr: 1 }}
@@ -130,6 +137,7 @@ export default function LocationTable({
                       </IconButton>
                       <IconButton 
                         onClick={() => location.id && onReject(location.id)}
+                        disabled={!isAdmin}
                         color="error"
                         size="small"
                         sx={{ mr: 1 }}
@@ -142,6 +150,7 @@ export default function LocationTable({
                   )}
                   <IconButton
                     onClick={() => onDelete(location)}
+                    disabled={!isAdmin}
                     color="error"
                     size="small"
                   >
