@@ -12,6 +12,7 @@ import {
 import { LocationData, PendingLocation, ApprovedLocation } from '@/types';
 import { supabase } from '@/lib/supabase-client';
 import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { approveLocation, rejectLocation } from '@/lib/location-approval-service';
 import LocationTable from './LocationTable';
 import LocationSearch from './LocationSearch';
