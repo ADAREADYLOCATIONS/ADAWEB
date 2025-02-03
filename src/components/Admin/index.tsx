@@ -20,18 +20,7 @@ import DeleteConfirmDialog from './DeleteConfirmDialog';
 
 export default function AdminPanel() {
   const { user } = useAuth();
-  const isAdmin = user?.app_metadata?.role === 'admin';
-  
-  if (!isAdmin) {
-    return (
-      <Box sx={{ p: 3 }}>
-        <Alert severity="error">
-          You do not have permission to access this page. Please contact an administrator.
-        </Alert>
-      </Box>
-    );
-  }
-
+  const router = useRouter();
   const [pendingLocations, setPendingLocations] = useState<PendingLocation[]>([]);
   const [approvedLocations, setApprovedLocations] = useState<ApprovedLocation[]>([]);
   const [filteredLocations, setFilteredLocations] = useState<LocationData[]>([]);
@@ -40,7 +29,8 @@ export default function AdminPanel() {
   const [activeTab, setActiveTab] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [locationToDelete, setLocationToDelete] = useState<LocationData | null>(null);
-  const router = useRouter();
+
+  const isAdmin = user?.app_metadata?.role === 'admin';
 
   const fetchLocations = useCallback(async () => {
     try {
@@ -94,8 +84,10 @@ export default function AdminPanel() {
   
 
   useEffect(() => {
-    fetchLocations();
-  }, [fetchLocations]);
+    if (isAdmin) {
+      fetchLocations();
+    }
+  }, [fetchLocations, isAdmin]);
 
   const handleSearch = useCallback((query: string) => {
     setSearchQuery(query);
@@ -141,6 +133,16 @@ export default function AdminPanel() {
       setError('Failed to delete location');
     }
   };
+
+  if (!isAdmin) {
+    return (
+      <Box sx={{ p: 3 }}>
+        <Alert severity="error">
+          You do not have permission to access this page. Please contact an administrator.
+        </Alert>
+      </Box>
+    );
+  }
 
   if (loading) {
     return (
